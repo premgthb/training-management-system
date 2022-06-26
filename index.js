@@ -2,6 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const verify = require('./routes/verifyToken')
+const multer = require('multer')
+const upload = multer()
 require('dotenv/config')
 
 mongoose.connect(process.env.DB_CONNECTION, () => console.log('Mongo DB Atlas Connected.'), {
@@ -10,7 +12,16 @@ mongoose.connect(process.env.DB_CONNECTION, () => console.log('Mongo DB Atlas Co
 })
 
 const app = express()
+
+// Requests using raw JSON
 app.use(bodyParser.json())
+
+// Requests Using form-urlencoded requests
+app.use(bodyParser.urlencoded({ extended: true }))
+
+// Requests Using form-data in Postman
+app.use(upload.array())
+app.use(express.static('public'))
 
 app.get('/', (req, res) => {
     res.send('TRAINING MANAGEMENT SYSTEM')
