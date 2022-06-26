@@ -2,7 +2,7 @@ const router = require('express').Router();
 const User = require('../models/User')
 const bcrypt = require('bcryptjs')
 const JWT = require('jsonwebtoken')
-const { registerValidation, loginValidation } = require('../validation')
+const { registerValidation, loginValidation } = require('../validation/validation')
 
 router.get('/', (req, res) => {
     res.send('Auth GET')
